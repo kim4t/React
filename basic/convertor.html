@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function App() {
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped] = React.useState(false);
+      const [isTime, setIsTime] = React.useState(true);
+      const [hiddenMile, setHiddenMile] = React.useState(true);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        setFlipped((flipped) => !flipped);
+        reset();
+      };
+      const setUnit = () => {
+        setIsTime((isTime) => !isTime);
+        setHiddenMile((hiddenMile) => !hiddenMile);
+        reset();
+      };
+      return (
+        <div>
+          <div>
+            <h1>Super Converter</h1>
+            <button
+              onClick={setUnit}
+              disabled={isTime}
+              hidden={hiddenMile ? "hidden" : ""}
+            >
+              Minutes/Hours
+            </button>
+            <button
+              onClick={setUnit}
+              disabled={!isTime}
+              hidden={!hiddenMile ? "hidden" : ""}
+            >
+              Miles/Km
+            </button>
+          </div>
+          <label htmlFor="minutes" hidden={!hiddenMile ? "hidden" : ""}>
+            Minutes
+          </label>
+          <input
+            value={flipped ? amount * 60 : amount}
+            id="minutes"
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange}
+            disabled={flipped}
+            hidden={!hiddenMile ? "hidden" : ""}
+          />
+          <div></div>
+
+          <label htmlFor="hours" hidden={!hiddenMile ? "hidden" : ""}>
+            Hours
+          </label>
+          <input
+            value={flipped ? Math.round(amount / 60) : amount}
+            id="hours"
+            placeholder="Hours"
+            type="number"
+            onChange={onChange}
+            disabled={!flipped}
+            hidden={!hiddenMile ? "hidden" : ""}
+          />
+          <div></div>
+
+          <label htmlFor="miles" hidden={hiddenMile ? "hidden" : ""}>
+            Miles
+          </label>
+          <input
+            value={flipped ? amount * 1.60934 : amount}
+            id="miles"
+            placeholder="Miles"
+            type="number"
+            onChange={onChange}
+            disabled={flipped}
+            hidden={hiddenMile ? "hidden" : ""}
+          />
+          <div></div>
+
+          <label htmlFor="Km" hidden={hiddenMile ? "hidden" : ""}>
+            Km
+          </label>
+          <input
+            value={flipped ? amount : amount / 1.60934}
+            id="km"
+            placeholder="Km"
+            type="number"
+            onChange={onChange}
+            disabled={!flipped}
+            hidden={hiddenMile ? "hidden" : ""}
+          />
+          <div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>Flip</button>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
