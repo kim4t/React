@@ -1,10 +1,14 @@
-//import ToDo from "./toDo";
-import CoinTracker from "./coinTracker";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
 function App() {
   return (
-    <div>
-      <CoinTracker />
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <Routes>
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />} />
+        <Route path="/movie/:id" element={<Detail />} />
+      </Routes>
+    </Router>
   );
 }
 
