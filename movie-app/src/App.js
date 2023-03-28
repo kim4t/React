@@ -1,8 +1,9 @@
-import ToDo from "./toDo";
+//import ToDo from "./toDo";
+import CoinTracker from "./coinTracker";
 function App() {
   return (
     <div>
-      <ToDo />
+      <CoinTracker />
     </div>
   );
 }
